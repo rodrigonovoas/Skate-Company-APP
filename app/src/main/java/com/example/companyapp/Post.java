@@ -7,8 +7,23 @@ public class Post {
     private String titulo;
     private String contenido;
     private Date fecha;
+    private int img;
     private int UsuarioID;
     private int PostID;
+
+    public Post(String title, String content, int img) {
+        this.titulo = title;
+        this.contenido = content;
+        this.img = img;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
 
     public String getTitulo() {
         return titulo;
