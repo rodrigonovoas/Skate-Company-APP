@@ -12,14 +12,16 @@ import android.widget.TextView;
 public class MyAdapter extends ArrayAdapter<String> {
 
     String[] names;
+    Double[] prices;
     int[] flags;
     Context mContext;
 
-    public MyAdapter(Context context, String[] countryNames, int[] countryFlags) {
+    public MyAdapter(Context context, String[] countryNames, int[] countryFlags, Double[] prices) {
         super(context, R.layout.listview_item);
         this.names = countryNames;
         this.flags = countryFlags;
         this.mContext = context;
+        this.prices = prices;
     }
 
     @Override
@@ -36,13 +38,15 @@ public class MyAdapter extends ArrayAdapter<String> {
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.listview_item, parent, false);
             mViewHolder.mFlag = (ImageView) convertView.findViewById(R.id.imageView);
-            mViewHolder.mName = (TextView) convertView.findViewById(R.id.textView);
+            mViewHolder.mName = (TextView) convertView.findViewById(R.id.tv_nombre);
+            mViewHolder.mPrice = (TextView) convertView.findViewById(R.id.tv_precio);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         mViewHolder.mFlag.setImageResource(flags[position]);
         mViewHolder.mName.setText(names[position]);
+        mViewHolder.mPrice.setText(String.valueOf(prices[position]));
 
         return convertView;
     }
@@ -50,5 +54,6 @@ public class MyAdapter extends ArrayAdapter<String> {
     static class ViewHolder {
         ImageView mFlag;
         TextView mName;
+        TextView mPrice;
     }
 }

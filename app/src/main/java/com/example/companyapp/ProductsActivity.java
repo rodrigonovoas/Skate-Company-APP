@@ -15,23 +15,22 @@ import android.widget.Toast;
 public class ProductsActivity extends Fragment {
     private static final String TAG = "ProductsActivity";
 
-    Toolbar mToolbar;
     ListView mListView;
 
-    String[] countryNames = {"Australia"};
+    String[] countryNames = {"Skate RX Street 10"};
 
 
     int[] countryFlags = {R.drawable.flag_australia};
+
+    Double[] countryPrices = {22.45};
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.productsactivity_layout, container, false);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle(getResources().getString(R.string.app_name));
         mListView = (ListView) view.findViewById(R.id.listview);
 
-        MyAdapter myAdapter = new MyAdapter(getContext(), countryNames, countryFlags);
+        MyAdapter myAdapter = new MyAdapter(getContext(), countryNames, countryFlags, countryPrices);
         mListView.setAdapter(myAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
