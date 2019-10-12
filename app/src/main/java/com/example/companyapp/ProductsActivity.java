@@ -1,10 +1,10 @@
 package com.example.companyapp;
 
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +12,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductsActivity extends Fragment {
     private static final String TAG = "ProductsActivity";
 
+    SQLiteDatabase db;
+    BDSkateCompany data_base;
+
+
     ListView mListView;
 
-    String[] countryNames = {"Skate RX Street 10"};
+    List<String> names;
+    List<Double> prices;
+    List<String> images;
 
-
-    int[] countryFlags = {R.drawable.flag_australia};
-
-    Double[] countryPrices = {22.45};
+    String[] productNames;
+    String[] productImages;
+    Double[] productPrices;
 
     @Nullable
     @Override
@@ -30,20 +38,47 @@ public class ProductsActivity extends Fragment {
         View view = inflater.inflate(R.layout.productsactivity_layout, container, false);
         mListView = (ListView) view.findViewById(R.id.listview);
 
-        MyAdapter myAdapter = new MyAdapter(getContext(), countryNames, countryFlags, countryPrices);
+        data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
+        db = data_base.getReadableDatabase();
+
+        assignProductData();
+
+        MyAdapter myAdapter = new MyAdapter(getContext(), productNames, productImages, productPrices);
         mListView.setAdapter(myAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Intent mIntent = new Intent(getContext(), DetailActivity.class);
-                //mIntent.putExtra("countryName", countryNames[i]);
-                //mIntent.putExtra("countryFlag", countryFlags[i]);
-                //startActivity(mIntent);
                 Toast.makeText(getContext(), "TOAST DE PRUEBA", Toast.LENGTH_SHORT).show();
             }
         });
 
         return view;
+    }
+
+    public void assignProductData() {
+        String query = "select * from producto";
+        Cursor cursor = db.rawQuery(query, null);
+
+        names = new ArrayList<String>();
+        prices = new ArrayList<Double>();
+        images = new ArrayList<String>();
+
+        while (cursor.moveToNext()) {
+            names.add(cursor.getString(1));
+            prices.add(cursor.getDouble(4));
+            images.add(data_base.getImageString("Articulo", cursor.getInt(0), db));
+        }
+
+        productNames = new String[names.size()];
+        productImages = new String[images.size()];
+        productPrices = new Double[prices.size()];
+
+        names.toArray(productNames);
+        prices.toArray(productPrices);
+        images.toArray(productImages);
+
+        db.close();
+        data_base.close();
     }
 
 }

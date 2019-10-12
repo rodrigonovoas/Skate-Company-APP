@@ -3,13 +3,8 @@ package com.example.companyapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by User on 2/28/2017.
- */
 
 public class SectionsPageAdapter extends FragmentPagerAdapter {
 

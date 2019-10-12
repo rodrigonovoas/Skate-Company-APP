@@ -1,5 +1,7 @@
 package com.example.companyapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,21 +10,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 2/28/2017.
- */
 
 public class NewsActivity extends Fragment {
     private static final String TAG = "NewsActivity";
+    List<Post> post;
 
     private RecyclerView recyclerViewNews;
     private RecyclerViewAdapter newsAdapter;
+
+    SQLiteDatabase db;
+    BDSkateCompany data_base;
 
     @Nullable
     @Override
@@ -32,6 +33,10 @@ public class NewsActivity extends Fragment {
         recyclerViewNews = (RecyclerView) view.findViewById(R.id.news_recycler);
         recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
+        db = data_base.getReadableDatabase();
+
+
         newsAdapter = new RecyclerViewAdapter(getNews());
         recyclerViewNews.setAdapter(newsAdapter);
 
@@ -39,12 +44,24 @@ public class NewsActivity extends Fragment {
     }
 
     public List<Post> getNews() {
-        List<Post> post = new ArrayList<>();
-        String prueba = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        post.add(new Post("Nuevas tiendas abiertas en el municipio de Zarautz.", prueba, R.drawable.giorno));
+        post = new ArrayList<>();
+        assignPostData();
 
         return post;
     }
+
+    public void assignPostData() {
+        String query = "select * from post";
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            post.add(new Post(cursor.getString(1), cursor.getString(2), data_base.getImageString("Post", cursor.getInt(0), db)));
+        }
+
+        db.close();
+        data_base.close();
+    }
+
 
     /*
     private Button btnTEST;

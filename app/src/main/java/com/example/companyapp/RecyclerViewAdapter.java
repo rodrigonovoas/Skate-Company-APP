@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    private Image image;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_title, tv_content;
@@ -39,9 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        image = new Image();
         holder.tv_title.setText(PostList.get(position).getTitulo());
         holder.tv_content.setText(PostList.get(position).getContenido());
-        holder.img_recycler.setImageResource(PostList.get(position).getImg()); //cargar imagen
+        holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.companyapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -27,25 +28,45 @@ public class ContactActivity extends Fragment {
     private Button btnTEST;
     private ImageView img;
 
+    SQLiteDatabase db;
+    BDSkateCompany data_base;
+
+    TextView tv_name;
+    TextView tv_address;
+    TextView tv_tlfn;
+    TextView tv_fax;
+    TextView tv_email;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contactactivity_layout, container, false);
-        btnTEST = (Button) view.findViewById(R.id.btnTEST3);
-        img = (ImageView) view.findViewById(R.id.imageView3);
-
-        //internet permissons
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        View view = inflater.inflate(R.layout.contactactivity_layout, container, false);
+        //btnTEST = (Button) view.findViewById(R.id.btnTEST3);
+        img = (ImageView) view.findViewById(R.id.imageView3);
+
+        tv_name = (TextView) view.findViewById(R.id.tv_nombre);
+        tv_address = (TextView) view.findViewById(R.id.tv_direccion);
+        tv_tlfn = (TextView) view.findViewById(R.id.tv_telefono);
+        tv_fax = (TextView) view.findViewById(R.id.tv_fax);
+        tv_email = (TextView) view.findViewById(R.id.tv_email);
+
+        data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
+        db = data_base.getReadableDatabase();
+
+
+        /*
         btnTEST.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "TESTING BUTTON CLICK 3", Toast.LENGTH_SHORT).show();
             }
         });
+        */
 
-
+        assignPostData();
         loadImageFromURL();
         return view;
     }
@@ -72,4 +93,20 @@ public class ContactActivity extends Fragment {
             e.printStackTrace();
         }
     }
+
+    public void assignPostData() {
+        String query = "select * from empresa";
+        Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+        tv_name.setText(cursor.getString(1));
+        tv_address.setText(cursor.getString(2));
+        tv_tlfn.setText(cursor.getString(3));
+        tv_fax.setText(cursor.getString(4));
+        tv_email.setText(cursor.getString(5));
+
+        db.close();
+        data_base.close();
+    }
+
 }

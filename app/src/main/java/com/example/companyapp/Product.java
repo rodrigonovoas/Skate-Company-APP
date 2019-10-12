@@ -1,8 +1,6 @@
 package com.example.companyapp;
 
-/*
-Clase molde para poder manejar más fácilmente los datos de la tabla producto de la bbdd
- */
+
 public class Product {
 
     private String name;

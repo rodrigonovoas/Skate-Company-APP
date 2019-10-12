@@ -13,13 +13,13 @@ public class MyAdapter extends ArrayAdapter<String> {
 
     String[] names;
     Double[] prices;
-    int[] flags;
+    String[] images;
     Context mContext;
 
-    public MyAdapter(Context context, String[] countryNames, int[] countryFlags, Double[] prices) {
+    public MyAdapter(Context context, String[] productNames, String[] images, Double[] prices) {
         super(context, R.layout.listview_item);
-        this.names = countryNames;
-        this.flags = countryFlags;
+        this.names = productNames;
+        this.images = images;
         this.mContext = context;
         this.prices = prices;
     }
@@ -33,18 +33,22 @@ public class MyAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder mViewHolder = new ViewHolder();
+        Image image;
+
+        image = new Image();
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.listview_item, parent, false);
-            mViewHolder.mFlag = (ImageView) convertView.findViewById(R.id.imageView);
+            mViewHolder.mImg = (ImageView) convertView.findViewById(R.id.imageView);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.tv_nombre);
             mViewHolder.mPrice = (TextView) convertView.findViewById(R.id.tv_precio);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        mViewHolder.mFlag.setImageResource(flags[position]);
+
+        mViewHolder.mImg.setImageBitmap(image.returnBitmapImageFromURL(images[position]));
         mViewHolder.mName.setText(names[position]);
         mViewHolder.mPrice.setText(String.valueOf(prices[position]));
 
@@ -52,7 +56,7 @@ public class MyAdapter extends ArrayAdapter<String> {
     }
 
     static class ViewHolder {
-        ImageView mFlag;
+        ImageView mImg;
         TextView mName;
         TextView mPrice;
     }
