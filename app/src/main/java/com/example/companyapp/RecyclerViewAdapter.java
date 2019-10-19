@@ -1,5 +1,6 @@
 package com.example.companyapp;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Image image;
+    private List<Post> PostList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_title, tv_content;
@@ -28,7 +30,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.PostList = postList;
     }
 
-    public List<Post> PostList;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
@@ -38,12 +39,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         image = new Image();
         holder.tv_title.setText(PostList.get(position).getTitulo());
         holder.tv_content.setText(PostList.get(position).getContenido());
-        holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
+        //holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
     }
 
     @Override
