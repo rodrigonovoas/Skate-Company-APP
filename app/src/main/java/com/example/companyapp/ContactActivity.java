@@ -1,9 +1,11 @@
 package com.example.companyapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -20,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 
 
 public class ContactActivity extends Fragment {
@@ -37,14 +40,18 @@ public class ContactActivity extends Fragment {
     TextView tv_fax;
     TextView tv_email;
 
+    ImageView img_email;
+    ImageView img_tlfn;
+    ImageView img_localizacion;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
         View view = inflater.inflate(R.layout.contactactivity_layout, container, false);
-        //btnTEST = (Button) view.findViewById(R.id.btnTEST3);
         img = (ImageView) view.findViewById(R.id.imageView3);
 
         tv_name = (TextView) view.findViewById(R.id.tv_nombre);
@@ -53,18 +60,44 @@ public class ContactActivity extends Fragment {
         tv_fax = (TextView) view.findViewById(R.id.tv_fax);
         tv_email = (TextView) view.findViewById(R.id.tv_email);
 
+        img_email = (ImageView) view.findViewById(R.id.img_email);
+        img_tlfn = (ImageView) view.findViewById(R.id.img_tlfn);
+        img_localizacion = (ImageView) view.findViewById(R.id.img_localizacion);
+
+
         data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
         db = data_base.getReadableDatabase();
 
 
-        /*
-        btnTEST.setOnClickListener(new View.OnClickListener() {
+        img_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "TESTING BUTTON CLICK 3", Toast.LENGTH_SHORT).show();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                emailIntent.setType("vnd.android.cursor.dir/email");
+                String to[] = {"ejemplo@gmail.com"};
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Envio");
+                startActivity(Intent.createChooser(emailIntent, "Enviar email..."));
             }
         });
-        */
+
+        img_tlfn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", "1234567890", null)));
+            }
+        });
+
+        img_localizacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=28.5675,77.3260");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
+
 
         assignPostData();
         loadImageFromURL();

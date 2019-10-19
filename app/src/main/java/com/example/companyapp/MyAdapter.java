@@ -64,4 +64,5 @@ public class MyAdapter extends ArrayAdapter<String> {
         TextView mName;
         TextView mPrice;
     }
+
 }
