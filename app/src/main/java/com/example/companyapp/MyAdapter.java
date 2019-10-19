@@ -42,15 +42,19 @@ public class MyAdapter extends ArrayAdapter<String> {
             convertView = mInflater.inflate(R.layout.listview_item, parent, false);
             mViewHolder.mImg = (ImageView) convertView.findViewById(R.id.imageView);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.tv_nombre);
-            mViewHolder.mPrice = (TextView) convertView.findViewById(R.id.tv_precio);
+            //mViewHolder.mPrice = (TextView) convertView.findViewById(R.id.tv_precio);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        mViewHolder.mImg.setImageBitmap(image.returnBitmapImageFromURL(images[position]));
+        if(image.returnBitmapImageFromURL(images[position]) == null){
+            mViewHolder.mImg.setImageResource(R.drawable.image_not_found);
+        }else{
+            mViewHolder.mImg.setImageBitmap(image.returnBitmapImageFromURL(images[position]));
+        }
         mViewHolder.mName.setText(names[position]);
-        mViewHolder.mPrice.setText(String.valueOf(prices[position]));
+        //mViewHolder.mPrice.setText(String.valueOf(prices[position]));
 
         return convertView;
     }

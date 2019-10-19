@@ -21,8 +21,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-            tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-            img_recycler = (ImageView) itemView.findViewById(R.id.img_recycler);
+            //tv_content = (TextView) itemView.findViewById(R.id.tv_content);
+            img_recycler = (ImageView) itemView.findViewById(R.id.img_background);
         }
     }
 
@@ -44,8 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         image = new Image();
         holder.tv_title.setText(PostList.get(position).getTitulo());
-        holder.tv_content.setText(PostList.get(position).getContenido());
-        //holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
+        //holder.tv_content.setText(PostList.get(position).getContenido());
+        if (image.returnBitmapImageFromURL(PostList.get(position).getImg()) != null) {
+            holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
+        } else {
+            holder.img_recycler.setImageResource(R.drawable.image_not_found);
+        }
     }
 
     @Override
