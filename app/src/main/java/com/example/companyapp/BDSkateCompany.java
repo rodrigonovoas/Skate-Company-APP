@@ -33,10 +33,12 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     String sqlCreateEmpresa = "CREATE TABLE Empresa(EmpresaID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, Nombre VARCHAR(50) NOT NULL, Direccion VARCHAR(50) NOT NULL, Telefono VARCHAR(50) NOT NULL, Fax VARCHAR(50), Email VARCHAR(50))";
 
     String sqlInsertProducto = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK','SKT1','Skate de alta gama de tabla de grafeno',23,1)";
+    String sqlInsertProducto2 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK2','SKT12','Skate de alta gama de tabla de grafeno 2',23,1)";
     String sqlInsertAlmacen = "INSERT INTO Almacen (ProductoID, Stock) VALUES (1,50)";
     String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn141.picsart.com/306391855082201.jpg?c256x256','Articulo',1)";
     String sqlInsertImagenPost = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn141.picsart.com/306391855082201.jpg?c256x256','Post',1)";
     String sqlInsertPost = "INSERT INTO Post (Titulo, Contenido, UsuarioID) VALUES ('TITULO DE PRUEBA','CONTENIDO DE PRUEBA ASDF ASDF',1)";
+    String sqlInsertPost2 = "INSERT INTO Post (Titulo, Contenido, UsuarioID) VALUES ('TITULO DE PRUEBA 2','CONTENIDO DE PRUEBA ASDF ASDF aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',1)";
     String sqlInsertUsuario = "INSERT INTO Usuario (Nombre,Contrasena) VALUES ('Carlitos','1234')";
     String sqlInsertEmpresa = "INSERT INTO Empresa (Nombre,Direccion, Telefono, Fax, Email) VALUES ('Novu SA', 'Barcelona c/Pirulate Portal 34','+34 94 365 44 58', '+34 91 54 333 32', 'emailempresa@gmail.com')";
 
@@ -57,10 +59,12 @@ public class BDSkateCompany extends SQLiteOpenHelper {
         db.execSQL(sqlCreateEmpresa);
 
         db.execSQL(sqlInsertProducto);
+        db.execSQL(sqlInsertProducto2);
         db.execSQL(sqlInsertAlmacen);
         db.execSQL(sqlInsertImagenArticulo);
         db.execSQL(sqlInsertImagenPost);
         db.execSQL(sqlInsertPost);
+        db.execSQL(sqlInsertPost2);
         db.execSQL(sqlInsertUsuario);
         db.execSQL(sqlInsertEmpresa);
     }
@@ -72,11 +76,16 @@ public class BDSkateCompany extends SQLiteOpenHelper {
 
 
     public String getImageString(String table, int ID, SQLiteDatabase db) {
+        String url;
         String query = "select * from imagen where tablaid = " + ID + " and tabla = '" + table + "'";
         Cursor cursor = db.rawQuery(query, null);
 
-        cursor.moveToFirst();
-        return cursor.getString(1);
+        if (cursor != null && cursor.moveToFirst()) {
+            url = cursor.getString(1);
+        } else {
+            url = "";
+        }
+        return url;
     }
 
 }

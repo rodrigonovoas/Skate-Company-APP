@@ -36,7 +36,6 @@ public class NewsActivity extends Fragment {
         data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
         db = data_base.getReadableDatabase();
 
-
         newsAdapter = new RecyclerViewAdapter(getNews());
         recyclerViewNews.setAdapter(newsAdapter);
 
@@ -55,7 +54,9 @@ public class NewsActivity extends Fragment {
         Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            post.add(new Post(cursor.getString(1), cursor.getString(2), data_base.getImageString("Post", cursor.getInt(0), db)));
+            if (cursor != null) {
+                post.add(new Post(cursor.getString(1), cursor.getString(2), data_base.getImageString("Post", cursor.getInt(0), db)));
+            }
         }
 
         db.close();
