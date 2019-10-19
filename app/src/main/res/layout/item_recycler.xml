@@ -12,7 +12,7 @@
         android:layout_height="fill_parent">
 
         <ImageView
-            android:id="@+id/img_background"
+            android:id="@+id/header_img"
             android:layout_width="fill_parent"
             android:layout_height="250dp"
             android:layout_alignParentLeft="true"
@@ -30,9 +30,9 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/img_background"
-            android:layout_alignTop="@id/img_background"
-            android:layout_alignRight="@id/img_background"
+            android:layout_alignStart="@id/header_img"
+            android:layout_alignTop="@id/header_img"
+            android:layout_alignRight="@id/header_img"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="120dp"
             android:layout_marginTop="120dp"

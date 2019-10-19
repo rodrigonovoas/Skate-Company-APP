@@ -24,11 +24,9 @@
 
         <ImageView
             android:id="@+id/header_img"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/global" />
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_title"

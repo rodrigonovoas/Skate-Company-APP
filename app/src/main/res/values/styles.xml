@@ -12,18 +12,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.WithoutActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="colorPrimaryDark">#057DCD</item>
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">#218C70</item>
+        <item name="colorPrimary">#218C70</item>
 
         <item name="colorControlActivated">?attr/colorAccent</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">#46A851</item>
         <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
         <item name="actionMenuTextColor">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@android:color/white</item>

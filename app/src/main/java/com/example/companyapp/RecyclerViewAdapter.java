@@ -1,14 +1,10 @@
 package com.example.companyapp;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             //tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-            img_recycler = (ImageView) itemView.findViewById(R.id.img_background);
+            img_recycler = (ImageView) itemView.findViewById(R.id.header_img);
         }
     }
 

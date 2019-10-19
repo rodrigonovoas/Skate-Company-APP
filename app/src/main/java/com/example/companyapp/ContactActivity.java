@@ -28,7 +28,6 @@ import java.util.Locale;
 public class ContactActivity extends Fragment {
     private static final String TAG = "ContactActivity";
 
-    private Button btnTEST;
     private ImageView img;
 
     SQLiteDatabase db;
@@ -106,7 +105,7 @@ public class ContactActivity extends Fragment {
 
     public void loadImageFromURL() {
         try {
-            URL url = new URL("https://cdn141.picsart.com/306391855082201.jpg?c256x256");
+            URL url = new URL("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg");
             InputStream in = url.openConnection().getInputStream();
             BufferedInputStream bis = new BufferedInputStream(in, 1024 * 8);
             ByteArrayOutputStream out = new ByteArrayOutputStream();

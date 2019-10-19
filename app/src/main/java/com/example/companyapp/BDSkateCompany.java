@@ -35,12 +35,15 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     String sqlInsertProducto = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK','SKT1','Skate de alta gama de tabla de grafeno',23,1)";
     String sqlInsertProducto2 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK2','SKT12','Skate de alta gama de tabla de grafeno 2',23,1)";
     String sqlInsertAlmacen = "INSERT INTO Almacen (ProductoID, Stock) VALUES (1,50)";
-    String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn141.picsart.com/306391855082201.jpg?c256x256','Articulo',1)";
-    String sqlInsertImagenPost = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn141.picsart.com/306391855082201.jpg?c256x256','Post',1)";
+    String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://images.blue-tomato.com/is/image/bluetomato/303838465_front.jpg-9OAxqJ7zqUgpwTTUDY1RCc8PFlE/Shut+Up+Skate+8+0+Complete.jpg?$b8$','Articulo',1)";
+    String sqlInsertImagenPost = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://monarksupply.com/blog/wp-content/uploads/2019/01/C%C3%B3mo-Construir-una-Mini-Ramp-de-Skate-Fabricaci%C3%B3n-Meseta-y-Colocaci%C3%B3n-Coping-2.jpg','Post',1)";
+    String sqlInsertImagenArticulo2 = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg','Articulo',2)";
+    String sqlInsertImagenPost2 = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn.vox-cdn.com/thumbor/Ipzvxc3GmjuBy1tzFEBMUheY5So=/0x0:3477x2376/1200x675/filters:focal(1645x350:2201x906)/cdn.vox-cdn.com/uploads/chorus_image/image/65215463/918380600.jpg.0.jpg','Post',2)";
     String sqlInsertPost = "INSERT INTO Post (Titulo, Contenido, UsuarioID) VALUES ('TITULO DE PRUEBA','CONTENIDO DE PRUEBA ASDF ASDF',1)";
+
     String sqlInsertPost2 = "INSERT INTO Post (Titulo, Contenido, UsuarioID) VALUES ('TITULO DE PRUEBA 2','CONTENIDO DE PRUEBA ASDF ASDF aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',1)";
     String sqlInsertUsuario = "INSERT INTO Usuario (Nombre,Contrasena) VALUES ('Carlitos','1234')";
-    String sqlInsertEmpresa = "INSERT INTO Empresa (Nombre,Direccion, Telefono, Fax, Email) VALUES ('Novu SA', 'Barcelona c/Pirulate Portal 34','+34 94 365 44 58', '+34 91 54 333 32', 'emailempresa@gmail.com')";
+    String sqlInsertEmpresa = "INSERT INTO Empresa (Nombre,Direccion, Telefono, Fax, Email) VALUES ('Novu SA', 'Barcelona c/Piruleta Portal 34','+34 94 365 44 58', '+34 91 54 333 32', 'emailempresa@gmail.com')";
 
 
     public BDSkateCompany(Context contexto, String nombre,
@@ -62,7 +65,9 @@ public class BDSkateCompany extends SQLiteOpenHelper {
         db.execSQL(sqlInsertProducto2);
         db.execSQL(sqlInsertAlmacen);
         db.execSQL(sqlInsertImagenArticulo);
+        db.execSQL(sqlInsertImagenArticulo2);
         db.execSQL(sqlInsertImagenPost);
+        db.execSQL(sqlInsertImagenPost2);
         db.execSQL(sqlInsertPost);
         db.execSQL(sqlInsertPost2);
         db.execSQL(sqlInsertUsuario);
