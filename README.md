@@ -1,5 +1,4 @@
-![Screenshot_2019-10-19-22-30-38-352_com example companyapp](https://user-images.githubusercontent.com/49367885/67157967-87934200-f332-11e9-909e-4282e94d2d4c.png) ![Screenshot_2019-10-19-22-30-51-582_android](https://user-images.githubusercontent.com/49367885/67157969-8feb7d00-f332-11e9-9733-c6bf4eb579e5.png)
-
+![Screenshot_2019-10-19-22-30-38-352_com example companyapp](https://user-images.githubusercontent.com/49367885/67158051-acd48000-f333-11e9-9179-397aa83cefc4.png) ![Screenshot_2019-10-19-22-30-51-582_android](https://user-images.githubusercontent.com/49367885/67158052-ad6d1680-f333-11e9-8b60-7d4aa601b55b.png)
 
 
 Una aplicación que he creado para simular una tienda que exponga noticias y productos.
