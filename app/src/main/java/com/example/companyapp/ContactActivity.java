@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,11 +21,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Locale;
 
+/*
+Clase que representa la pestaña de Contactos de la Aplicación.
+Se alimenta con la información de la empresa desde la BBDD, e incluye funciones
+como el poder redirigirte hacia la aplicación de llamadas, hacia la aplicación
+de Google Maps, y hacia la aplicación que elijas de correo electrónico.
+ */
 
 public class ContactActivity extends Fragment {
     private static final String TAG = "ContactActivity";
+
+    private Image image;
 
     private ImageView img;
 
@@ -46,10 +52,11 @@ public class ContactActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //Estas dos línesa son necesarias para que te deje cargar imágenes desde interner y te deje acceder a algunas aplicaciones externas
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
+        image = new Image();
         View view = inflater.inflate(R.layout.contactactivity_layout, container, false);
         img = (ImageView) view.findViewById(R.id.imageView3);
 
@@ -63,11 +70,11 @@ public class ContactActivity extends Fragment {
         img_tlfn = (ImageView) view.findViewById(R.id.img_tlfn);
         img_localizacion = (ImageView) view.findViewById(R.id.img_localizacion);
 
-
+        //Se instancia la base de datos, de nombre bdSkate
         data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
         db = data_base.getReadableDatabase();
 
-
+        //Aquí ponemos un Click Listener a la imagen de Email, y cuando hacemos click en ella, nos redirige a la aplicación que elijamos de correo electrónico.
         img_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +87,7 @@ public class ContactActivity extends Fragment {
             }
         });
 
+        //Aquí ponemos un Click Listener a la imagen del Teléfono, y nos abre la aplicación nativa de Android de llamada, con el número que pasamos como parámetro
         img_tlfn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +95,7 @@ public class ContactActivity extends Fragment {
             }
         });
 
+        //Aquí ponemos un Click Listener a la imagen del Mundo, y nos abre la app de Google Maps ocn las coordenadas que le pasemos.
         img_localizacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,33 +108,14 @@ public class ContactActivity extends Fragment {
 
 
         assignPostData();
-        loadImageFromURL();
+        img.setImageBitmap(image.returnBitmapImageFromURL("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg"));
         return view;
     }
 
-    public void loadImageFromURL() {
-        try {
-            URL url = new URL("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg");
-            InputStream in = url.openConnection().getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(in, 1024 * 8);
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
+    //Función que retorna un URL en formato bitmap, para poder asignárselo a una View tipo ImageView y poder cargar una imagen desde internet.
 
-            int len = 0;
-            byte[] buffer = new byte[1024];
-            while ((len = bis.read(buffer)) != -1) {
-                out.write(buffer, 0, len);
-            }
-            out.close();
-            bis.close();
 
-            byte[] data = out.toByteArray();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            img.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    //Cargo los datos desde la bbdd a las distintas vistas
     public void assignPostData() {
         String query = "select * from empresa";
         Cursor cursor = db.rawQuery(query, null);

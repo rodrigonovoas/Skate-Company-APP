@@ -9,6 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/*
+En esta clase persoanlizamos el listview de ProductsActivity.
+Lo hacemos mediante los distintos arrays que rellenamos desde la bbdd y posteriormente los asignamos
+a las Views del layout listview_item
+ */
+
 public class MyAdapter extends ArrayAdapter<String> {
 
     String[] names;
@@ -36,6 +42,8 @@ public class MyAdapter extends ArrayAdapter<String> {
         Image image;
 
         image = new Image();
+
+        //Aquí usamos un LayoutInflater para personalizar las distintas vistas usadas en el ListView de Productos
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,6 +56,7 @@ public class MyAdapter extends ArrayAdapter<String> {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //Aseguramos que, si no encuentra imagen, asigne una por defecto cargada desde el propio proyecto.
         if(image.returnBitmapImageFromURL(images[position]) == null){
             mViewHolder.mImg.setImageResource(R.drawable.image_not_found);
         }else{

@@ -6,6 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Clase que se utiliza para el uso de las pestañas/tabs.
+Según la propia documentación:
+Implementation of PagerAdapter that represents each page as a Fragment that is persistently kept in
+the fragment manager as long as the user can return to the page.
+ */
 public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();

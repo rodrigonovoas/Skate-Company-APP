@@ -15,6 +15,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Clase que carga los productos a la ListView, la cual está customizada y se asignan sus datos en la clase MyAdapter.
+ */
+
 public class ProductsActivity extends Fragment {
     private static final String TAG = "ProductsActivity";
 
@@ -43,8 +47,11 @@ public class ProductsActivity extends Fragment {
 
         assignProductData();
 
+        //Se le asigna el adaptador al listivew, para poder personalizarlo
         MyAdapter myAdapter = new MyAdapter(getContext(), productNames, productImages, productPrices);
         mListView.setAdapter(myAdapter);
+
+        //Los productos tienen un Click Listener que les permite agregar una funcionalidad en caso de pulsar en uno de ellos.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -55,6 +62,7 @@ public class ProductsActivity extends Fragment {
         return view;
     }
 
+    //Se asignan los datos desde la BBDD
     public void assignProductData() {
         String query = "select * from producto";
         Cursor cursor = db.rawQuery(query, null);

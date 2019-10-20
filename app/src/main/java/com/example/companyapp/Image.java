@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+/*
+Clase molde Imagen, de la cual obtendremos los distintos atributos expuestos más abajo.
+También posee una función con la cual obtendrémos una imagen desde internet en formato bitmap, para asignársla a una ImageView
+ */
 
 public class Image {
     private int ImageID;

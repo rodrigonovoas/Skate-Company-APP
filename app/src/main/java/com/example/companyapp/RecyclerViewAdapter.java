@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/*
+Clase AdapterView, que sirve para personalizar el RecyclerView de PostActivity.
+ */
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Image image;
     private List<Post> PostList;
@@ -19,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_title, tv_content;
         private ImageView img_recycler;
 
+        //Aquí asignamos las disintas Views mediante el constructor.
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
@@ -28,7 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public RecyclerViewAdapter(List<Post> postList) {
-        this.PostList = postList;
+        this.PostList = postList; //Asignamos la lista de la clase molde Post, previamente pasada como parámetro
     }
 
 
@@ -43,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        image = new Image();
+        image = new Image(); //instanciamos la clase molde Image, para poder acceder a su función returnBitmapImageFromURL
         myDialog = new Dialog(holder.img_recycler.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
         if (image.returnBitmapImageFromURL(PostList.get(position).getImg()) != null) {
@@ -53,6 +58,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            /*
+            Aquí creamos la ventana emergente que hará visualizar el contenido del Post. Le asignamos
+            las views correspondientes junto con sus datos, obtenidos desde la clase molde Post.
+             */
+
             @Override
             public void onClick(View arg0) {
                 TextView txtclose;

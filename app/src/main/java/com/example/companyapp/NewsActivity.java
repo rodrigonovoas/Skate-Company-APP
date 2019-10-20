@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Pestaña de Noticias. Aquí se carga la información de la tabla Post de la bbdd, y le damos un estilo
+mediante ReyclerViewAdapter y sus layouts, dándole un estilo de imagen de Blog.
+También damos la opción a abrir la noticia en una ventana emergente gracias a un Click Listener.
+ */
 
 public class NewsActivity extends Fragment {
     private static final String TAG = "NewsActivity";
@@ -42,6 +47,7 @@ public class NewsActivity extends Fragment {
         return view;
     }
 
+    //Hacemos una lista de la clase molde Post, asignandole los datos con el método assignPostData
     public List<Post> getNews() {
         post = new ArrayList<>();
         assignPostData();
@@ -49,6 +55,7 @@ public class NewsActivity extends Fragment {
         return post;
     }
 
+    //Obtenemos los post y sus información de la bbdd
     public void assignPostData() {
         String query = "select * from post";
         Cursor cursor = db.rawQuery(query, null);
@@ -62,17 +69,4 @@ public class NewsActivity extends Fragment {
         db.close();
         data_base.close();
     }
-
-
-    /*
-    private Button btnTEST;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.newsactivity_layout,container,false);
-
-        return view;
-    }
-    */
 }

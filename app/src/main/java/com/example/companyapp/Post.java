@@ -2,6 +2,10 @@ package com.example.companyapp;
 
 import java.util.Date;
 
+/*
+Clase molde Post para poder reutilizar la información más fácilmente, una vez obtenida desde la base de datos.
+ */
+
 public class Post {
 
     private String titulo;
