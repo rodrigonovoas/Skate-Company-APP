@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 /*
 En esta clase persoanlizamos el listview de ProductsActivity.
 Lo hacemos mediante los distintos arrays que rellenamos desde la bbdd y posteriormente los asignamos
@@ -57,11 +59,8 @@ public class MyAdapter extends ArrayAdapter<String> {
         }
 
         //Aseguramos que, si no encuentra imagen, asigne una por defecto cargada desde el propio proyecto.
-        if(image.returnBitmapImageFromURL(images[position]) == null){
-            mViewHolder.mImg.setImageResource(R.drawable.image_not_found);
-        }else{
-            mViewHolder.mImg.setImageBitmap(image.returnBitmapImageFromURL(images[position]));
-        }
+        Picasso.with(getContext()).load(images[position]).into(mViewHolder.mImg);
+
         mViewHolder.mName.setText(names[position]);
         //mViewHolder.mPrice.setText(String.valueOf(prices[position]));
 

@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 /*
 Clase molde Imagen, de la cual obtendremos los distintos atributos expuestos más abajo.
@@ -50,6 +51,7 @@ public class Image {
     }
 
 
+    /*
     public Bitmap returnBitmapImageFromURL(String image_url) {
         //internet permissons
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -77,4 +79,5 @@ public class Image {
         }
         return bitmap;
     }
+    */
 }

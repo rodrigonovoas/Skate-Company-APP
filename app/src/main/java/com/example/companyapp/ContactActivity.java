@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -108,7 +110,9 @@ public class ContactActivity extends Fragment {
 
 
         assignPostData();
-        img.setImageBitmap(image.returnBitmapImageFromURL("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg"));
+
+        Picasso.with(getContext()).load("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg").into(img);
+
         return view;
     }
 

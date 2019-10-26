@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /*
@@ -51,11 +53,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         image = new Image(); //instanciamos la clase molde Image, para poder acceder a su función returnBitmapImageFromURL
         myDialog = new Dialog(holder.img_recycler.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
-        if (image.returnBitmapImageFromURL(PostList.get(position).getImg()) != null) {
-            holder.img_recycler.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
-        } else {
-            holder.img_recycler.setImageResource(R.drawable.image_not_found);
-        }
+        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(holder.img_recycler);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             /*
@@ -77,11 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 img = (ImageView) myDialog.findViewById(R.id.header_img);
                 txtclose.setText("X");
 
-                if (image.returnBitmapImageFromURL(PostList.get(position).getImg()) != null) {
-                    img.setImageBitmap(image.returnBitmapImageFromURL(PostList.get(position).getImg()));
-                } else {
-                    img.setImageResource(R.drawable.image_not_found);
-                }
+                Picasso.with(txtclose.getContext()).load(PostList.get(position).getImg()).into(img);
 
                 tv_title.setText(PostList.get(position).getTitulo());
                 tv_content.setText(PostList.get(position).getContenido());
