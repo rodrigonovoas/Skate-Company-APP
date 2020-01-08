@@ -17,7 +17,6 @@ Clase AdapterView, que sirve para personalizar el RecyclerView de PostActivity.
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private Image image;
     private List<Post> PostList;
     Dialog myDialog;
 
@@ -43,7 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -52,7 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        image = new Image(); //instanciamos la clase molde Image, para poder acceder a su función returnBitmapImageFromURL
         myDialog = new Dialog(holder.img_post.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
         holder.tv_nombreusuario.setText(PostList.get(position).getNombre_usuario());

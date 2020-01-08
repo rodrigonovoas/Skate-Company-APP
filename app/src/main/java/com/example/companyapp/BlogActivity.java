@@ -20,12 +20,12 @@ mediante ReyclerViewAdapter y sus layouts, dándole un estilo de imagen de Blog.
 También damos la opción a abrir la noticia en una ventana emergente gracias a un Click Listener.
  */
 
-public class NewsActivity extends Fragment {
-    private static final String TAG = "NewsActivity";
+public class BlogActivity extends Fragment {
+    private static final String TAG = "BlogActivity";
     List<Post> post;
 
-    private RecyclerView recyclerViewNews;
-    private RecyclerViewAdapter newsAdapter;
+    private RecyclerView recyclerViewBlog;
+    private RecyclerViewAdapter blogAdapter;
 
     SQLiteDatabase db;
     BDSkateCompany data_base;
@@ -33,30 +33,30 @@ public class NewsActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.newsactivity_layout, container, false);
+        View view = inflater.inflate(R.layout.blog_activity, container, false);
 
-        recyclerViewNews = (RecyclerView) view.findViewById(R.id.news_recycler);
-        recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewBlog = (RecyclerView) view.findViewById(R.id.news_recycler);
+        recyclerViewBlog.setLayoutManager(new LinearLayoutManager(getContext()));
 
         data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
         db = data_base.getReadableDatabase();
 
-        newsAdapter = new RecyclerViewAdapter(getNews());
-        recyclerViewNews.setAdapter(newsAdapter);
+        blogAdapter = new RecyclerViewAdapter(obtenerPost());
+        recyclerViewBlog.setAdapter(blogAdapter);
 
         return view;
     }
 
     //Hacemos una lista de la clase molde Post, asignandole los datos con el método assignPostData
-    public List<Post> getNews() {
+    public List<Post> obtenerPost() {
         post = new ArrayList<>();
-        assignPostData();
+        asignarDatos();
 
         return post;
     }
 
     //Obtenemos los post y sus información de la bbdd
-    public void assignPostData() {
+    public void asignarDatos() {
         String query = "select * from post";
         Cursor cursor = db.rawQuery(query, null);
 

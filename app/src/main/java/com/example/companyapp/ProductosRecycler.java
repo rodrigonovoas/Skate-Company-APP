@@ -14,55 +14,45 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Aws on 28/01/2018.
- */
 
-public class ArticlesRecycler extends RecyclerView.Adapter<ArticlesRecycler.MyViewHolder> {
+public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.MyViewHolder> {
 
     private Context mContext;
-    private List<Product> mData;
-    private Image image;
+    private List<Producto> mData;
 
 
-    public ArticlesRecycler(Context mContext, List<Product> mData) {
+    public ProductosRecycler(Context mContext, List<Producto> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        image = new Image();
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardveiw_item_book, parent, false);
+        view = mInflater.inflate(R.layout.producto_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-
-        holder.tv_book_title.setText(mData.get(position).getName());
-        Picasso.with(holder.tv_book_title.getContext()).load(mData.get(position).getImagen()).into(holder.img_book_thumbnail);
+        holder.tv_producto.setText(mData.get(position).getNombre());
+        holder.tv_precio.setText(String.valueOf(mData.get(position).getPrecio()));
+        Picasso.with(holder.tv_producto.getContext()).load(mData.get(position).getImagen()).into(holder.img_producto);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(mContext, InformacionProductoActivity.class);
 
-                Intent intent = new Intent(mContext, Book_Activity.class);
-
-                // passing data to the book activity
-                intent.putExtra("Title", mData.get(position).getName());
-                intent.putExtra("Description", mData.get(position).getDescription());
-                //intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
-                intent.putExtra("Thumbnail", mData.get(position).getImagen());
-                // start the activity
+                intent.putExtra("Nom", mData.get(position).getNombre());
+                intent.putExtra("Desc", mData.get(position).getDescripcion());
+                intent.putExtra("Img", mData.get(position).getImagen());
+                intent.putExtra("Precio", String.valueOf(mData.get(position).getPrecio()));
+                intent.putExtra("Codigo", mData.get(position).getCodigo());
                 mContext.startActivity(intent);
 
             }
         });
-
-
     }
 
     @Override
@@ -72,15 +62,16 @@ public class ArticlesRecycler extends RecyclerView.Adapter<ArticlesRecycler.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_book_title;
-        ImageView img_book_thumbnail;
+        TextView tv_producto, tv_precio;
+        ImageView img_producto;
         CardView cardView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id);
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
+            tv_producto = (TextView) itemView.findViewById(R.id.tv_titulo);
+            tv_precio = (TextView) itemView.findViewById(R.id.tv_precio);
+            img_producto = (ImageView) itemView.findViewById(R.id.img_producto);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
 

@@ -10,9 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,49 +18,45 @@ import java.util.List;
 Clase que carga los productos a la ListView, la cual está customizada y se asignan sus datos en la clase MyAdapter.
  */
 
-public class ProductsActivity extends Fragment {
-    private static final String TAG = "ProductsActivity";
+public class ProductosActivity extends Fragment {
+    private static final String TAG = "ProductosActivity";
 
     SQLiteDatabase db;
     BDSkateCompany data_base;
 
-
-    ListView mListView;
-
-    List<Product> lst_productos;
+    List<Producto> lst_productos;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.articles_activity, container, false);
+        View view = inflater.inflate(R.layout.productos_activity, container, false);
 
         data_base = new BDSkateCompany(view.getContext(), "bdSkate", null, 1);
         db = data_base.getReadableDatabase();
 
-        assignProductData();
+        asignarDatos();
 
         RecyclerView myrv = (RecyclerView) view.findViewById(R.id.recyclerview_id);
-        ArticlesRecycler myAdapter = new ArticlesRecycler(view.getContext(), lst_productos);
+        ProductosRecycler myAdapter = new ProductosRecycler(view.getContext(), lst_productos);
         myrv.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
         myrv.setAdapter(myAdapter);
         return view;
     }
 
-    public void assignProductData() {
-        lst_productos = new ArrayList<Product>();
+    public void asignarDatos() {
+        lst_productos = new ArrayList<Producto>();
 
         String img_producto = "";
         String query = "select * from producto";
         Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            img_producto = "";
             img_producto = data_base.getImageString("Articulo", cursor.getInt(0), db);
             if (img_producto.equalsIgnoreCase("")) {
-                img_producto = "abc";
+                img_producto = "aaa";
             }
 
-            lst_productos.add(new Product(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getFloat(4), img_producto));
+            lst_productos.add(new Producto(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getFloat(4), img_producto));
         }
 
         db.close();

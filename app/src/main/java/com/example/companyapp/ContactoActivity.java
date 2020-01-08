@@ -3,8 +3,6 @@ package com.example.companyapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -13,17 +11,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 /*
 Clase que representa la pestaña de Contactos de la Aplicación.
@@ -32,8 +23,8 @@ como el poder redirigirte hacia la aplicación de llamadas, hacia la aplicación
 de Google Maps, y hacia la aplicación que elijas de correo electrónico.
  */
 
-public class ContactActivity extends Fragment {
-    private static final String TAG = "ContactActivity";
+public class ContactoActivity extends Fragment {
+    private static final String TAG = "ContactoActivity";
 
     private Image image;
 
@@ -42,8 +33,8 @@ public class ContactActivity extends Fragment {
     SQLiteDatabase db;
     BDSkateCompany data_base;
 
-    TextView tv_name;
-    TextView tv_address;
+    TextView tv_nombre;
+    TextView tv_direccion;
     TextView tv_tlfn;
     TextView tv_fax;
     TextView tv_email;
@@ -60,11 +51,11 @@ public class ContactActivity extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
         image = new Image();
-        View view = inflater.inflate(R.layout.contactactivity_layout, container, false);
+        View view = inflater.inflate(R.layout.contacto_activity, container, false);
         img = (ImageView) view.findViewById(R.id.imageView3);
 
-        tv_name = (TextView) view.findViewById(R.id.tv_nombre);
-        tv_address = (TextView) view.findViewById(R.id.tv_direccion);
+        tv_nombre = (TextView) view.findViewById(R.id.tv_nombre);
+        tv_direccion = (TextView) view.findViewById(R.id.tv_direccion);
         tv_tlfn = (TextView) view.findViewById(R.id.tv_telefono);
         tv_fax = (TextView) view.findViewById(R.id.tv_fax);
         tv_email = (TextView) view.findViewById(R.id.tv_email);
@@ -125,8 +116,8 @@ public class ContactActivity extends Fragment {
         Cursor cursor = db.rawQuery(query, null);
 
         cursor.moveToFirst();
-        tv_name.setText(cursor.getString(1));
-        tv_address.setText(cursor.getString(2));
+        tv_nombre.setText(cursor.getString(1));
+        tv_direccion.setText(cursor.getString(2));
         tv_tlfn.setText("Tlf. " + cursor.getString(3));
         tv_fax.setText("Fax: " + cursor.getString(4));
         tv_email.setText("Email: " + cursor.getString(5));

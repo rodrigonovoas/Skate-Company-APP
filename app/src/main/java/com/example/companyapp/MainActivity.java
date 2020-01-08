@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new NewsActivity(), "Noticias");
-        adapter.addFragment(new ProductsActivity(), "Productos");
-        adapter.addFragment(new ContactActivity(), "Contacto");
+        adapter.addFragment(new BlogActivity(), "Noticias");
+        adapter.addFragment(new ProductosActivity(), "Productos");
+        adapter.addFragment(new ContactoActivity(), "Contacto");
         viewPager.setAdapter(adapter);
     }
 

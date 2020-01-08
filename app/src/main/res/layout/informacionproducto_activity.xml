@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Book_Activity"
+    tools:context=".InformacionProductoActivity"
     android:background="#fcfcfc">
 
     <android.support.v4.widget.NestedScrollView
@@ -23,34 +23,42 @@
                 android:layout_width="125dp"
                 android:layout_height="170dp"
                 android:background="#2d2d2d"
-                android:id="@+id/bookthumbnail"
+                android:id="@+id/img_producto"
                 android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/txttitle"
+                android:id="@+id/tv_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Book Title"
+                android:text="Titulo"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/txtCat"
+                android:id="@+id/tv_precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category"
+                android:text="Precio"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_codigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Codigo"
                 android:background="#edecec"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/txtDesc"
+                android:id="@+id/tv_descripcion"
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"/>
+                android:text="Descripcion"/>
 
 
 

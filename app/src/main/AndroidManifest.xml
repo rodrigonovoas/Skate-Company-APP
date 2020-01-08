@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/skate_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.WithoutActionBar">
-        <activity android:name=".Book_Activity" />
+        <activity android:name=".InformacionProductoActivity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
