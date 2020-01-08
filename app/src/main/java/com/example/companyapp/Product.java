@@ -9,22 +9,31 @@ public class Product {
     private String name;
     private float price;
     private int productID;
-    private int code;
-    private int description;
+    private String code;
+    private String description;
+    private String imagen;
 
-    public int getCode() {
+    public Product(String name, String code, String description, float price, String imagen) {
+        this.name = name;
+        this.code = code;
+        this.description = description;
+        this.price = price;
+        this.imagen = imagen;
+    }
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -50,6 +59,14 @@ public class Product {
 
     public void setPrice(float precio) {
         this.price = precio;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.name = imagen;
     }
 
 }

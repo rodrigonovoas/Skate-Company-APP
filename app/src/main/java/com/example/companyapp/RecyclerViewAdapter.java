@@ -22,15 +22,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Dialog myDialog;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_title, tv_content;
-        private ImageView img_recycler;
+        private TextView tv_title, tv_content, tv_nombreusuario;
+        private ImageView img_post, img_usuario;
 
         //Aquí asignamos las disintas Views mediante el constructor.
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+            tv_nombreusuario = (TextView) itemView.findViewById(R.id.tv_username);
             //tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-            img_recycler = (ImageView) itemView.findViewById(R.id.header_img);
+            img_usuario = (ImageView) itemView.findViewById(R.id.img_user);
+            img_post = (ImageView) itemView.findViewById(R.id.img_post);
         }
     }
 
@@ -51,9 +53,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         image = new Image(); //instanciamos la clase molde Image, para poder acceder a su función returnBitmapImageFromURL
-        myDialog = new Dialog(holder.img_recycler.getContext());
+        myDialog = new Dialog(holder.img_post.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
-        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(holder.img_recycler);
+        holder.tv_nombreusuario.setText(PostList.get(position).getNombre_usuario());
+        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(holder.img_post);
+        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg_usuario()).into(holder.img_usuario);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

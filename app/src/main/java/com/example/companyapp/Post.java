@@ -13,12 +13,16 @@ public class Post {
     private Date fecha;
     private String img;
     private int UsuarioID;
+    private String img_usuario;
+    private String nombre_usuario;
     private int PostID;
 
-    public Post(String title, String content, String img) {
+    public Post(String title, String content, String img, String img_usuario, String nombre_usuario) {
         this.titulo = title;
         this.contenido = content;
         this.img = img;
+        this.img_usuario = img_usuario;
+        this.nombre_usuario = nombre_usuario;
     }
 
     public String getImg() {
@@ -67,6 +71,14 @@ public class Post {
 
     public int getPostID() {
         return PostID;
+    }
+
+    public String getImg_usuario() {
+        return img_usuario;
+    }
+
+    public String getNombre_usuario() {
+        return nombre_usuario;
     }
 
 }

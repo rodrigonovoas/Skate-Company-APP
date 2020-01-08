@@ -22,7 +22,8 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     String sqlInsertProducto = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK','SKT1','Skate de alta gama de tabla de grafeno',23,1)";
     String sqlInsertProducto2 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK2','SKT12','Skate de alta gama de tabla de grafeno 2',23,1)";
     String sqlInsertAlmacen = "INSERT INTO Almacen (ProductoID, Stock) VALUES (1,50)";
-    String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://images.blue-tomato.com/is/image/bluetomato/303838465_front.jpg-9OAxqJ7zqUgpwTTUDY1RCc8PFlE/Shut+Up+Skate+8+0+Complete.jpg?$b8$','Articulo',1)";
+    String sqlInsertImagenUsuario = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn.imgbin.com/5/21/5/imgbin-super-paper-mario-super-mario-bros-paper-mario-sticker-star-mario-super-mario-illustration-VDeNrmmWsZ0iJimV29yZQWHpR.jpg','Usuario',1)";
+    String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg','Articulo',1)";
     String sqlInsertImagenPost = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://monarksupply.com/blog/wp-content/uploads/2019/01/C%C3%B3mo-Construir-una-Mini-Ramp-de-Skate-Fabricaci%C3%B3n-Meseta-y-Colocaci%C3%B3n-Coping-2.jpg','Post',1)";
     String sqlInsertImagenArticulo2 = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg','Articulo',2)";
     String sqlInsertImagenPost2 = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn.vox-cdn.com/thumbor/Ipzvxc3GmjuBy1tzFEBMUheY5So=/0x0:3477x2376/1200x675/filters:focal(1645x350:2201x906)/cdn.vox-cdn.com/uploads/chorus_image/image/65215463/918380600.jpg.0.jpg','Post',2)";
@@ -51,6 +52,7 @@ public class BDSkateCompany extends SQLiteOpenHelper {
         db.execSQL(sqlInsertProducto);
         db.execSQL(sqlInsertProducto2);
         db.execSQL(sqlInsertAlmacen);
+        db.execSQL(sqlInsertImagenUsuario);
         db.execSQL(sqlInsertImagenArticulo);
         db.execSQL(sqlInsertImagenArticulo2);
         db.execSQL(sqlInsertImagenPost);
@@ -78,6 +80,19 @@ public class BDSkateCompany extends SQLiteOpenHelper {
             url = "";
         }
         return url;
+    }
+
+    public String obtenerNombreUsuario(int usuarioID, SQLiteDatabase db) {
+        String nombre = "";
+        String query = "select * from usuario where usuarioid = " + usuarioID;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            nombre = cursor.getString(1);
+        } else {
+            nombre = "";
+        }
+        return nombre;
     }
 
 }

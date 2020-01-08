@@ -62,11 +62,10 @@ public class NewsActivity extends Fragment {
 
         while (cursor.moveToNext()) {
             if (cursor != null) {
-                post.add(new Post(cursor.getString(1), cursor.getString(2), data_base.getImageString("Post", cursor.getInt(0), db)));
+                post.add(new Post(cursor.getString(1), cursor.getString(2), data_base.getImageString("Post", cursor.getInt(0), db), data_base.getImageString("Usuario", cursor.getInt(3), db), data_base.obtenerNombreUsuario(cursor.getInt(3), db)));
             }
         }
 
         db.close();
-        data_base.close();
     }
 }
