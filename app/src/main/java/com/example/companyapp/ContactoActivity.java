@@ -118,9 +118,9 @@ public class ContactoActivity extends Fragment {
         cursor.moveToFirst();
         tv_nombre.setText(cursor.getString(1));
         tv_direccion.setText(cursor.getString(2));
-        tv_tlfn.setText("Tlf. " + cursor.getString(3));
-        tv_fax.setText("Fax: " + cursor.getString(4));
-        tv_email.setText("Email: " + cursor.getString(5));
+        tv_tlfn.setText(cursor.getString(3));
+        tv_fax.setText(cursor.getString(4));
+        tv_email.setText(cursor.getString(5));
 
         db.close();
         data_base.close();

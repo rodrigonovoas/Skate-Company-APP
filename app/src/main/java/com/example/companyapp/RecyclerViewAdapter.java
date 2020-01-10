@@ -1,14 +1,20 @@
 package com.example.companyapp;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -23,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_title, tv_content, tv_nombreusuario;
         private ImageView img_post, img_usuario;
+        private RelativeLayout layout;
 
         //Aquí asignamos las disintas Views mediante el constructor.
         public ViewHolder(View itemView) {
@@ -31,7 +38,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_nombreusuario = (TextView) itemView.findViewById(R.id.tv_username);
             //tv_content = (TextView) itemView.findViewById(R.id.tv_content);
             img_usuario = (ImageView) itemView.findViewById(R.id.img_user);
-            img_post = (ImageView) itemView.findViewById(R.id.img_post);
+            //img_post = (ImageView) itemView.findViewById(R.id.img_post);
+            layout = (RelativeLayout) itemView.findViewById(R.id.relativeid);
         }
     }
 
@@ -50,12 +58,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        myDialog = new Dialog(holder.img_post.getContext());
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        myDialog = new Dialog(holder.tv_title.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
         holder.tv_nombreusuario.setText(PostList.get(position).getNombre_usuario());
-        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(holder.img_post);
         Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg_usuario()).into(holder.img_usuario);
+
+        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                holder.layout.setBackground(new BitmapDrawable(holder.tv_title.getContext().getResources(), bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(final Drawable errorDrawable) {
+                Log.d("TAG", "FAILED");
+            }
+
+            @Override
+            public void onPrepareLoad(final Drawable placeHolderDrawable) {
+                Log.d("TAG", "Prepare Load");
+            }
+        });
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

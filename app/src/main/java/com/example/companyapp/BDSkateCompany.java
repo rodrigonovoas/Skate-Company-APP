@@ -21,6 +21,9 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     //Insertando datos para poder utilizarlos como ejemplo
     String sqlInsertProducto = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK','SKT1','Skate de alta gama de tabla de grafeno',23,1)";
     String sqlInsertProducto2 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK2','SKT12','Skate de alta gama de tabla de grafeno 2',23,1)";
+    String sqlInsertProducto3 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK3','SKT13','Skate de alta gama de tabla de grafeno 3',23,1)";
+    String sqlInsertProducto4 = "INSERT INTO Producto (Nombre, Codigo, Descripcion, Precio, AlmacenID) VALUES ('Skate SLK4','SKT125','Skate de alta gama de tabla de grafeno 4',23,1)";
+
     String sqlInsertAlmacen = "INSERT INTO Almacen (ProductoID, Stock) VALUES (1,50)";
     String sqlInsertImagenUsuario = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://cdn.imgbin.com/5/21/5/imgbin-super-paper-mario-super-mario-bros-paper-mario-sticker-star-mario-super-mario-illustration-VDeNrmmWsZ0iJimV29yZQWHpR.jpg','Usuario',1)";
     String sqlInsertImagenArticulo = "INSERT INTO Imagen (URL, Tabla, TablaID) VALUES ('https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg','Articulo',1)";
@@ -51,6 +54,8 @@ public class BDSkateCompany extends SQLiteOpenHelper {
 
         db.execSQL(sqlInsertProducto);
         db.execSQL(sqlInsertProducto2);
+        db.execSQL(sqlInsertProducto3);
+        db.execSQL(sqlInsertProducto4);
         db.execSQL(sqlInsertAlmacen);
         db.execSQL(sqlInsertImagenUsuario);
         db.execSQL(sqlInsertImagenArticulo);

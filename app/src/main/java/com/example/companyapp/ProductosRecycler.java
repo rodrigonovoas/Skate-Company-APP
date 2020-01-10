@@ -37,7 +37,7 @@ public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tv_producto.setText(mData.get(position).getNombre());
-        holder.tv_precio.setText(String.valueOf(mData.get(position).getPrecio()));
+        holder.tv_precio.setText(String.valueOf(mData.get(position).getPrecio()) + " €");
         Picasso.with(holder.tv_producto.getContext()).load(mData.get(position).getImagen()).into(holder.img_producto);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.My
                 intent.putExtra("Nom", mData.get(position).getNombre());
                 intent.putExtra("Desc", mData.get(position).getDescripcion());
                 intent.putExtra("Img", mData.get(position).getImagen());
-                intent.putExtra("Precio", String.valueOf(mData.get(position).getPrecio()));
+                intent.putExtra("Precio", String.valueOf(mData.get(position).getPrecio()) + " €");
                 intent.putExtra("Codigo", mData.get(position).getCodigo());
                 mContext.startActivity(intent);
 
