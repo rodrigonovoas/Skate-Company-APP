@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 
-/*
-Clase principal con la que asignámos el modelo principal de la aplicación, que será basada en TABS (pestañas).
- */
+
+//Clase principal con la que asignamos el modelo principal de la aplicación, que será basada en TABS (pestañas).
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

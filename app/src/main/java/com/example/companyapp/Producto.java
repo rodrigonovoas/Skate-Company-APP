@@ -1,8 +1,8 @@
 package com.example.companyapp;
 
-/*
-Clase molde Product para poder reutilizar la información más fácilmente, una vez obtenida desde la base de datos.
- */
+
+//Clase molde Producto para poder reutilizar la información más fácilmente, una vez obtenida desde la base de datos.
+
 
 public class Producto {
 

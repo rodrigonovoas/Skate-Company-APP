@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 /*
 Clase SQLite que sirve como molde para poder crear la bbdd y utilizar funciones relacionadas con ella (insertar y eliminar datos, por ejemplo)
  */
+
 public class BDSkateCompany extends SQLiteOpenHelper {
 
+
+    //Creación de las distintas tablas que se usarán en la BBDD
     String sqlCreateProducto = "CREATE TABLE Producto (ProductoID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,Nombre VARCHAR(20) NOT NULL, Codigo VARCHAR(20) NOT NULL, Descripcion VARCHAR(20) NOT NULL, Precio DOUBLE NOT NULL,AlmacenID INTEGER,FOREIGN KEY(AlmacenID) REFERENCES Almacen(AlmacenID))";
     String sqlCreateAlmacen = "CREATE TABLE Almacen (AlmacenID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, ProductoID INTEGER, Stock INTEGER  NOT NULL, FOREIGN KEY(ProductoID) REFERENCES Producto(ProductoID))";
     String sqlCreateImagen = "CREATE TABLE Imagen (ImagenID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,  URL VARCHAR(200) NOT NULL,  Tabla VARCHAR(100) NOT NULL, TablaID INTEGER  NOT NULL)";
@@ -52,7 +55,9 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     //se ejecutan estos códigos sql la primera vez que se crea la bbdd
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         //Aquí se ejecuta el código SQL, creándose las tablas e insertándose los registros.
+
         db.execSQL(sqlCreateProducto);
         db.execSQL(sqlCreateAlmacen);
         db.execSQL(sqlCreateImagen);
@@ -84,6 +89,7 @@ public class BDSkateCompany extends SQLiteOpenHelper {
     }
 
     //Función que he creado para obtener el URL de la bbdd relacionado con la tabla Imagen
+
     public String getImageString(String table, int ID, SQLiteDatabase db) {
         String url;
         String query = "select * from imagen where tablaid = " + ID + " and tabla = '" + table + "'";

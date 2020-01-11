@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+//Clase en la que se carga la información del producto y posteriormente se asigna a las vistas del layout
+
 public class InformacionProductoActivity extends AppCompatActivity {
 
     private TextView tv_titulo, tv_descripcion, tv_codigo, tv_precio;

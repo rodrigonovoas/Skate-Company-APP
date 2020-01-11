@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-Pestaña de Noticias. Aquí se carga la información de la tabla Post de la bbdd, y le damos un estilo
-mediante ReyclerViewAdapter y sus layouts, dándole un estilo de imagen de Blog.
-También damos la opción a abrir la noticia en una ventana emergente gracias a un Click Listener.
+Pestaña de Noticias. Aquí se carga la información de la tabla Post de la bd, y le damos un estilo
+mediante ReyclerViewAdapter y sus layouts, intentando imitar los post de un blog.
+También damos la opción a abrir la noticia en una ventana emergente (dialog) gracias al click listener y la creación del dialog con su respectivo layout.
  */
 
 public class BlogActivity extends Fragment {
@@ -47,7 +47,8 @@ public class BlogActivity extends Fragment {
         return view;
     }
 
-    //Hacemos una lista de la clase molde Post, asignandole los datos con el método assignPostData
+    //Hacemos una lista de la clase molde Post, asignandole los datos con el método asignarDatos
+
     public List<Post> obtenerPost() {
         post = new ArrayList<>();
         asignarDatos();
@@ -55,7 +56,7 @@ public class BlogActivity extends Fragment {
         return post;
     }
 
-    //Obtenemos los post y sus información de la bbdd
+    //Obtenemos los post y sus información de la bd; posteriormente, rellenamos la lista del objeto Post con los datos sacados de la bd
     public void asignarDatos() {
         String query = "select * from post";
         Cursor cursor = db.rawQuery(query, null);

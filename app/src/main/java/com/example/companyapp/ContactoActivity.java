@@ -19,14 +19,12 @@ import com.squareup.picasso.Picasso;
 /*
 Clase que representa la pestaña de Contactos de la Aplicación.
 Se alimenta con la información de la empresa desde la BBDD, e incluye funciones
-como el poder redirigirte hacia la aplicación de llamadas, hacia la aplicación
-de Google Maps, y hacia la aplicación que elijas de correo electrónico.
+como el poder redirigirte hacia la aplicación de llamadas, a la aplicación
+de Google Maps, y a la aplicación que elijas de correo electrónico.
  */
 
 public class ContactoActivity extends Fragment {
     private static final String TAG = "ContactoActivity";
-
-    private Image image;
 
     private ImageView img;
 
@@ -50,7 +48,6 @@ public class ContactoActivity extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        image = new Image();
         View view = inflater.inflate(R.layout.contacto_activity, container, false);
         img = (ImageView) view.findViewById(R.id.imageView3);
 
@@ -89,7 +86,7 @@ public class ContactoActivity extends Fragment {
             }
         });
 
-        //Aquí ponemos un Click Listener a la imagen del Mundo, y nos abre la app de Google Maps ocn las coordenadas que le pasemos.
+        //Aquí ponemos un Click Listener a la imagen del Mundo, y nos abre la app de Google Maps con las coordenadas que le pasemos.
         img_localizacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,10 +104,7 @@ public class ContactoActivity extends Fragment {
         return view;
     }
 
-    //Función que retorna un URL en formato bitmap, para poder asignárselo a una View tipo ImageView y poder cargar una imagen desde internet.
-
-
-    //Cargo los datos desde la bbdd a las distintas vistas
+    //Cargo los datos desde la bd a las distintas vistas
     public void assignPostData() {
         String query = "select * from empresa";
         Cursor cursor = db.rawQuery(query, null);

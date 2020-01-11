@@ -23,7 +23,7 @@ import com.squareup.picasso.Target;
 import java.util.List;
 
 /*
-Clase AdapterView, que sirve para personalizar el RecyclerView de PostActivity.
+Clase AdapterView, que sirve para personalizar el RecyclerView de BlogActivity.
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

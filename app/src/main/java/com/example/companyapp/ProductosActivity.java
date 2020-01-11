@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Clase que carga los productos a la ListView, la cual está customizada y se asignan sus datos en la clase MyAdapter.
- */
+
+//Clase que carga los productos a la ListView, la cual está customizada y se asignan sus datos en la clase ProductosRecycler.
+
 
 public class ProductosActivity extends Fragment {
     private static final String TAG = "ProductosActivity";
