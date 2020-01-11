@@ -4,13 +4,17 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,8 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Dialog myDialog;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_title, tv_content, tv_nombreusuario;
-        private ImageView img_post, img_usuario;
+        private TextView tv_title, tv_nombreusuario;
+        private ImageView img_usuario;
         private RelativeLayout layout;
 
         //Aquí asignamos las disintas Views mediante el constructor.
@@ -36,9 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_nombreusuario = (TextView) itemView.findViewById(R.id.tv_username);
-            //tv_content = (TextView) itemView.findViewById(R.id.tv_content);
             img_usuario = (ImageView) itemView.findViewById(R.id.img_user);
-            //img_post = (ImageView) itemView.findViewById(R.id.img_post);
             layout = (RelativeLayout) itemView.findViewById(R.id.relativeid);
         }
     }
@@ -72,6 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onBitmapFailed(final Drawable errorDrawable) {
+
                 Log.d("TAG", "FAILED");
             }
 
@@ -94,12 +97,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 TextView tv_title;
                 TextView tv_content;
                 ImageView img;
+                ScrollView scroll;
+
 
                 myDialog.setContentView(R.layout.post_popup);
                 txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
                 tv_title = (TextView) myDialog.findViewById(R.id.tv_title);
                 tv_content = (TextView) myDialog.findViewById(R.id.tv_content);
                 img = (ImageView) myDialog.findViewById(R.id.header_img);
+                scroll = (ScrollView) myDialog.findViewById(R.id.scroll_view);
                 txtclose.setText("X");
 
                 Picasso.with(txtclose.getContext()).load(PostList.get(position).getImg()).into(img);
@@ -112,6 +118,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         myDialog.dismiss();
                     }
                 });
+
+
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(tv_content, 1, 17, 1,
+                        TypedValue.COMPLEX_UNIT_DIP);
+
+
                 myDialog.show();
             }
         });

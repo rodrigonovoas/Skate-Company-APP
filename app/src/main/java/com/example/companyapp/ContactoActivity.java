@@ -102,7 +102,7 @@ public class ContactoActivity extends Fragment {
 
         assignPostData();
 
-        Picasso.with(getContext()).load("https://comofuncionaque.com/wp-content/uploads/2016/10/skate-normal.jpg").into(img);
+        Picasso.with(getContext()).load("https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg").into(img);
 
         return view;
     }
