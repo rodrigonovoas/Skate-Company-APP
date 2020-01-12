@@ -10,11 +10,11 @@ Y en la tercera una págian de contacto que redirecciona a tres métodos de info
 
 En este proyecto podemos ver:
 
-- Programación Orientada a Objetos 
-- Creación de una base de datos local y de SQL
-- Creación de ventanas emergentes mediante el uso de Dialog
-- Acceso a apliaciones nativas pasando parámetros: Google Maps, Gmail y la aplicación de Llamada
-- Uso de pestañas para organizar y cargar datos
-- Personalización de ListView y RecyclerView gracias a sus respectivos Adapters
-- Carga de imágenes desde internet, mediante su URL
-- Customización de Styles y Colors
+- Programación Orientada a Objetos.
+- Creación de una base de datos local con SQLite.
+- Recogida de datos desde la base de datos.
+- Creación de ventanas emergentes mediante el uso de Dialog.
+- Acceso a aplicaciones nativas pasando parámetros: Google Maps, Gmail y la aplicación de Llamada.
+- Uso de pestañas para organizar y cargar datos.
+- Personalización de ListView y RecyclerView gracias a sus respectivos Adapters.
+- Carga de imágenes desde internet, gracias a la libreria Picasso.
