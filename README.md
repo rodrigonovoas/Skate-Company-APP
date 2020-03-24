@@ -1,4 +1,5 @@
-![captura1](https://user-images.githubusercontent.com/49367885/77476312-a1bdd880-6e1a-11ea-9869-9ee8f41d29bf.jpg)
+![captura1](https://user-images.githubusercontent.com/49367885/77476515-04af6f80-6e1b-11ea-94cc-a246f24e71e0.jpg) ![captura2](https://user-images.githubusercontent.com/49367885/77476523-07aa6000-6e1b-11ea-9ad5-33bc71a2d2aa.jpg)
+
 
 
 
