@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.companyapp.R;
 import com.example.companyapp.api.WebService;
@@ -37,6 +40,10 @@ public class BlogActivity extends Fragment {
     private RecyclerView recyclerViewBlog;
     private RecyclerViewAdapter blogAdapter;
 
+    LinearLayout ll_warning;
+    TextView tv_warning;
+    ImageView imv_warning;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +51,10 @@ public class BlogActivity extends Fragment {
 
         recyclerViewBlog = (RecyclerView) view.findViewById(R.id.news_recycler);
         recyclerViewBlog.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ll_warning = getActivity().findViewById(R.id.ll_warninginfo);
+        tv_warning = getActivity().findViewById(R.id.tv_warninginfo);
+        imv_warning = getActivity().findViewById(R.id.imv_warning);
 
         obtenerPost();
 
@@ -64,24 +75,33 @@ public class BlogActivity extends Fragment {
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response){
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
+
                 if(response.code() == 200){
                     for(int i=0;i<response.body().size();i++){
                         //reponse.body(i).getNombre()
-                        post.add(response.body().get(i));
+                        //post.add(response.body().get(i));
                     }
 
-                    blogAdapter = new RecyclerViewAdapter(post);
-                    recyclerViewBlog.setAdapter(blogAdapter);
+                    if(post.size() <= 0){
+                        ll_warning.setVisibility(View.VISIBLE);
+                        tv_warning.setText("No hay datos disponibles.");
+                    }else{
+                        blogAdapter = new RecyclerViewAdapter(post);
+                        recyclerViewBlog.setAdapter(blogAdapter);
+                    }
 
                 }else if(response.code() == 404){
-                    //codigo error
+                    ll_warning.setVisibility(View.VISIBLE);
+                    tv_warning.setText("ERROR CON EL SERVIDOR.");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                //codigo
-
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
+                ll_warning.setVisibility(View.VISIBLE);
+                tv_warning.setText("ERROR AL CONECTARSE AL SERVIDOR.");
             }
 
         });

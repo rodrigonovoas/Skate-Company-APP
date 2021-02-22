@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -51,6 +52,10 @@ public class ContactoActivity extends Fragment {
     ImageView img_tlfn;
     ImageView img_localizacion;
 
+    LinearLayout ll_warning;
+    TextView tv_warning;
+    ImageView imv_warning;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +75,10 @@ public class ContactoActivity extends Fragment {
         img_email = (ImageView) view.findViewById(R.id.img_email);
         img_tlfn = (ImageView) view.findViewById(R.id.img_tlfn);
         img_localizacion = (ImageView) view.findViewById(R.id.img_localizacion);
+
+        ll_warning = getActivity().findViewById(R.id.ll_warninginfo);
+        tv_warning = getActivity().findViewById(R.id.tv_warninginfo);
+        imv_warning = getActivity().findViewById(R.id.imv_warning);
 
         //Aquí ponemos un Click Listener a la imagen de Email, y cuando hacemos click en ella, nos redirige a la aplicación que elijamos de correo electrónico.
         img_email.setOnClickListener(new View.OnClickListener() {
@@ -116,26 +125,35 @@ public class ContactoActivity extends Fragment {
         call.enqueue(new Callback<Empresa>() {
             @Override
             public void onResponse(Call<Empresa> call, Response<Empresa> response){
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
+
                 if(response.code() == 200){
                     Empresa empresa = response.body();
 
-                    tv_nombre.setText(empresa.getNombre());
-                    tv_direccion.setText(empresa.getDireccion());
-                    tv_tlfn.setText(empresa.getTelefono());
-                    tv_fax.setText(empresa.getFax());
-                    tv_email.setText(empresa.getEmail());
+                    if(empresa == null){
+                        ll_warning.setVisibility(View.VISIBLE);
+                        tv_warning.setText("No hay datos disponibles.");
+                    }else{
+                        tv_nombre.setText(empresa.getNombre());
+                        tv_direccion.setText(empresa.getDireccion());
+                        tv_tlfn.setText(empresa.getTelefono());
+                        tv_fax.setText(empresa.getFax());
+                        tv_email.setText(empresa.getEmail());
 
-                    cargarImagen(img.getContext(),img,"https://www.uc3m.es/ss/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1371557659282&ssbinary=true");
+                        cargarImagen(img.getContext(),img,"https://www.uc3m.es/ss/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1371557659282&ssbinary=true");
+                    }
 
                 }else if(response.code() == 404){
-                    //codigo error
+                    ll_warning.setVisibility(View.VISIBLE);
+                    tv_warning.setText("ERROR CON EL SERVIDOR.");
                 }
             }
 
             @Override
             public void onFailure(Call<Empresa> call, Throwable t) {
-                //codigo
-
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
+                ll_warning.setVisibility(View.VISIBLE);
+                tv_warning.setText("ERROR AL CONECTARSE AL SERVIDOR.");
             }
 
         });

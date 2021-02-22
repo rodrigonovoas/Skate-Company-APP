@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.companyapp.api.WebService;
 import com.example.companyapp.api.WebServiceAPI;
@@ -32,10 +35,18 @@ public class ProductosActivity extends Fragment {
 
     List<Producto> lst_productos;
 
+    LinearLayout ll_warning;
+    TextView tv_warning;
+    ImageView imv_warning;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.productos_activity, container, false);
+
+        ll_warning = getActivity().findViewById(R.id.ll_warninginfo);
+        tv_warning = getActivity().findViewById(R.id.tv_warninginfo);
+        imv_warning = getActivity().findViewById(R.id.imv_warning);
 
         asignarDatos(view);
 
@@ -50,24 +61,34 @@ public class ProductosActivity extends Fragment {
         call.enqueue(new Callback<List<Producto>>() {
             @Override
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response){
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
                 if(response.code() == 200){
                     for(int i=0;i<response.body().size();i++){
                         //reponse.body(i).getNombre()
                         lst_productos.add(response.body().get(i));
                     }
 
-                    RecyclerView myrv = (RecyclerView) view.findViewById(R.id.recyclerview_id);
-                    ProductosRecycler myAdapter = new ProductosRecycler(view.getContext(), lst_productos);
-                    myrv.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-                    myrv.setAdapter(myAdapter);
+                    if(lst_productos.size() <= 0){
+                        ll_warning.setVisibility(View.VISIBLE);
+                        tv_warning.setText("No hay datos disponibles.");
+                    }else{
+                        RecyclerView myrv = (RecyclerView) view.findViewById(R.id.recyclerview_id);
+                        ProductosRecycler myAdapter = new ProductosRecycler(view.getContext(), lst_productos);
+                        myrv.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+                        myrv.setAdapter(myAdapter);
+                    }
+
                 }else if(response.code() == 404){
-                    //codigo error
+                    ll_warning.setVisibility(View.VISIBLE);
+                    tv_warning.setText("ERROR CON EL SERVIDOR.");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Producto>> call, Throwable t) {
-                //codigo
+                imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
+                ll_warning.setVisibility(View.VISIBLE);
+                tv_warning.setText("ERROR AL CONECTARSE AL SERVIDOR.");
             }
 
         });
