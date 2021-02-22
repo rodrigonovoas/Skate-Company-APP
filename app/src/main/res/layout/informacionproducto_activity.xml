@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fcfcfc"
-    tools:context=".InformacionProductoActivity">
+    tools:context=".ui.InformacionProductoActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedscroll"
@@ -89,7 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.987"
-        app:srcCompat="@android:drawable/presence_offline" />
+        app:srcCompat="@drawable/back" />
 
 
 </android.support.constraint.ConstraintLayout>

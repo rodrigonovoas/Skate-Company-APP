@@ -7,15 +7,16 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@drawable/skate_icon"
         android:label="Skate Shop"
         android:roundIcon="@drawable/skate_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.WithoutActionBar">
-        <activity android:name=".InformacionProductoActivity" />
+        <activity android:name=".ui.InformacionProductoActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

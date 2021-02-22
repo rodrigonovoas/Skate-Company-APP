@@ -1,5 +1,6 @@
-package com.example.companyapp;
+package com.example.companyapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.example.companyapp.R;
+import com.example.companyapp.api.WebService;
+import com.example.companyapp.api.WebServiceAPI;
+import com.example.companyapp.model.Empresa;
+import com.example.companyapp.model.Post;
+import com.example.companyapp.ui.adapters.RecyclerViewAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Clase que representa la pestaña de Contactos de la Aplicación.
@@ -27,9 +40,6 @@ public class ContactoActivity extends Fragment {
     private static final String TAG = "ContactoActivity";
 
     private ImageView img;
-
-    SQLiteDatabase db;
-    BDSkateCompany data_base;
 
     TextView tv_nombre;
     TextView tv_direccion;
@@ -60,10 +70,6 @@ public class ContactoActivity extends Fragment {
         img_email = (ImageView) view.findViewById(R.id.img_email);
         img_tlfn = (ImageView) view.findViewById(R.id.img_tlfn);
         img_localizacion = (ImageView) view.findViewById(R.id.img_localizacion);
-
-        //Se instancia la base de datos, de nombre bdSkate
-        data_base = new BDSkateCompany(getContext(), "bdSkate", null, 1);
-        db = data_base.getReadableDatabase();
 
         //Aquí ponemos un Click Listener a la imagen de Email, y cuando hacemos click en ella, nos redirige a la aplicación que elijamos de correo electrónico.
         img_email.setOnClickListener(new View.OnClickListener() {
@@ -99,25 +105,47 @@ public class ContactoActivity extends Fragment {
 
         assignPostData();
 
-        Picasso.with(getContext()).load("https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg").into(img);
-
         return view;
     }
 
     //Cargo los datos desde la bd a las distintas vistas
     public void assignPostData() {
-        String query = "select * from empresa";
-        Cursor cursor = db.rawQuery(query, null);
 
-        cursor.moveToFirst();
-        tv_nombre.setText(cursor.getString(1));
-        tv_direccion.setText(cursor.getString(2));
-        tv_tlfn.setText(cursor.getString(3));
-        tv_fax.setText(cursor.getString(4));
-        tv_email.setText(cursor.getString(5));
+        Call<Empresa> call = WebService.getInstance().createService(WebServiceAPI.class).getEmpresaPorId(1);
 
-        db.close();
-        data_base.close();
+        call.enqueue(new Callback<Empresa>() {
+            @Override
+            public void onResponse(Call<Empresa> call, Response<Empresa> response){
+                if(response.code() == 200){
+                    Empresa empresa = response.body();
+
+                    tv_nombre.setText(empresa.getNombre());
+                    tv_direccion.setText(empresa.getDireccion());
+                    tv_tlfn.setText(empresa.getTelefono());
+                    tv_fax.setText(empresa.getFax());
+                    tv_email.setText(empresa.getEmail());
+
+                    cargarImagen(img.getContext(),img,"https://www.uc3m.es/ss/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1371557659282&ssbinary=true");
+
+                }else if(response.code() == 404){
+                    //codigo error
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Empresa> call, Throwable t) {
+                //codigo
+
+            }
+
+        });
+    }
+
+
+    private static void cargarImagen(Context context, ImageView img, String url){
+        Glide.with(context)
+                .load(url)
+                .into(img);
     }
 
 }

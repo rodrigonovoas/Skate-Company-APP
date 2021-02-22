@@ -3,13 +3,14 @@
     android:layout_width="350dp"
     android:layout_height="425dp"
     android:layout_gravity="center"
-    android:background="@drawable/custom_border_layout"
+    android:background="@drawable/popup_background"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtclose"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_margin="5dp"
         android:layout_gravity="end"
         android:gravity="center"
         android:text="X"
@@ -22,6 +23,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:layout_margin="10dp"
             android:id="@+id/header_img"
             android:layout_width="fill_parent"
             android:layout_height="150dp"
@@ -35,7 +37,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/colorBlue"
-            android:textSize="20sp"
+            android:textSize="22dp"
             android:textStyle="bold" />
 
 
@@ -46,11 +48,11 @@
             android:paddingTop="5dp">
 
             <TextView
+                android:layout_margin="15dp"
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
+                android:layout_gravity="top"
                 android:paddingTop="20dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="normal" />

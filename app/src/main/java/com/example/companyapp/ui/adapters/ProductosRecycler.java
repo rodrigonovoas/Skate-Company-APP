@@ -1,5 +1,6 @@
-package com.example.companyapp;
+package com.example.companyapp.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
+import com.bumptech.glide.Glide;
+import com.example.companyapp.R;
+import com.example.companyapp.model.Producto;
+import com.example.companyapp.ui.InformacionProductoActivity;
 import java.util.List;
 
 
@@ -35,10 +38,11 @@ public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.tv_producto.setText(mData.get(position).getNombre());
         holder.tv_precio.setText(String.valueOf(mData.get(position).getPrecio()) + " €");
-        Picasso.with(holder.tv_producto.getContext()).load(mData.get(position).getImagen()).into(holder.img_producto);
+        cargarImagen(mContext,holder.img_producto,mData.get(position).getImgurl());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +50,7 @@ public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.My
 
                 intent.putExtra("Nom", mData.get(position).getNombre());
                 intent.putExtra("Desc", mData.get(position).getDescripcion());
-                intent.putExtra("Img", mData.get(position).getImagen());
+                intent.putExtra("Img", mData.get(position).getImgurl());
                 intent.putExtra("Precio", String.valueOf(mData.get(position).getPrecio()) + " €");
                 intent.putExtra("Codigo", mData.get(position).getCodigo());
                 mContext.startActivity(intent);
@@ -73,9 +77,13 @@ public class ProductosRecycler extends RecyclerView.Adapter<ProductosRecycler.My
             tv_precio = (TextView) itemView.findViewById(R.id.tv_precio);
             img_producto = (ImageView) itemView.findViewById(R.id.img_producto);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
-
-
         }
+    }
+
+    private static void cargarImagen(Context context,ImageView img, String url){
+        Glide.with(context)
+                .load(url)
+                .into(img);
     }
 
 

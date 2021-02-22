@@ -1,5 +1,6 @@
-package com.example.companyapp;
+package com.example.companyapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.example.companyapp.R;
 
 //Clase en la que se carga la información del producto y posteriormente se asigna a las vistas del layout
 
@@ -39,9 +41,10 @@ public class InformacionProductoActivity extends AppCompatActivity {
 
         tv_titulo.setText(titulo);
         tv_descripcion.setText(descripcion);
-        Picasso.with(getApplicationContext()).load(imagen).into(img_producto);
         tv_codigo.setText(cod);
         tv_precio.setText(precio);
+
+        cargarImagen(this,img_producto,imagen);
 
 
         fab_atras.setOnClickListener(new View.OnClickListener() {
@@ -50,5 +53,11 @@ public class InformacionProductoActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private static void cargarImagen(Context context, ImageView img, String url){
+        Glide.with(context)
+                .load(url)
+                .into(img);
     }
 }

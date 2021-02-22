@@ -1,10 +1,13 @@
-package com.example.companyapp;
+package com.example.companyapp.ui;
 
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.companyapp.R;
+import com.example.companyapp.ui.adapters.SectionsPageAdapter;
 
 
 //Clase principal con la que asignamos el modelo principal de la aplicación, que será basada en TABS (pestañas).

@@ -1,12 +1,13 @@
-package com.example.companyapp;
+package com.example.companyapp.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -17,10 +18,13 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.example.companyapp.R;
+import com.example.companyapp.model.Post;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /*
 Clase AdapterView, que sirve para personalizar el RecyclerView de BlogActivity.
@@ -60,29 +64,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         myDialog = new Dialog(holder.tv_title.getContext());
         holder.tv_title.setText(PostList.get(position).getTitulo());
-        holder.tv_nombreusuario.setText(PostList.get(position).getNombre_usuario());
-        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg_usuario()).into(holder.img_usuario);
+        //holder.tv_nombreusuario.setText(PostList.get(position).getNombre_usuario());
+        //cargar imagen usuario
 
-        Picasso.with(holder.tv_title.getContext()).load(PostList.get(position).getImg()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                holder.layout.setBackground(new BitmapDrawable(holder.tv_title.getContext().getResources(), bitmap));
-            }
+        final Bitmap[] chefBitmap = {null};
 
-            @Override
-            public void onBitmapFailed(final Drawable errorDrawable) {
+        Glide.with(holder.tv_title.getContext())
+                .asBitmap()
+                .load(PostList.get(position).getImgurl())
+                .into(new BitmapImageViewTarget(holder.img_usuario) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        chefBitmap[0] = resource;
+                        super.setResource(resource);
 
-                Log.d("TAG", "FAILED");
-            }
 
-            @Override
-            public void onPrepareLoad(final Drawable placeHolderDrawable) {
-                Log.d("TAG", "Prepare Load");
-            }
-        });
+                        if(chefBitmap[0] != null){
+                            BitmapDrawable ob = new BitmapDrawable(holder.tv_title.getContext().getResources(), chefBitmap[0]);
+
+                            holder.layout.setBackground(ob);
+                        }
+                    }
+                });
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +115,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 scroll = (ScrollView) myDialog.findViewById(R.id.scroll_view);
                 txtclose.setText("X");
 
-                Picasso.with(txtclose.getContext()).load(PostList.get(position).getImg()).into(img);
+                cargarImagen(txtclose.getContext(),img,PostList.get(position).getImgurl());
 
                 tv_title.setText(PostList.get(position).getTitulo());
                 tv_content.setText(PostList.get(position).getContenido());
@@ -130,8 +137,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-
     public int getItemCount() {
         return PostList.size();
+    }
+
+
+    private static void cargarImagen(Context context, ImageView img, String url){
+        Glide.with(context)
+                .load(url)
+                .into(img);
     }
 }
