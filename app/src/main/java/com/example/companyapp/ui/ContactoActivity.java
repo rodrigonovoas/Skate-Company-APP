@@ -48,6 +48,10 @@ public class ContactoActivity extends Fragment {
     TextView tv_fax;
     TextView tv_email;
 
+    TextView tv_titulotlfn;
+    TextView tv_tituloemail;
+    TextView tv_titulofax;
+
     ImageView img_email;
     ImageView img_tlfn;
     ImageView img_localizacion;
@@ -71,6 +75,10 @@ public class ContactoActivity extends Fragment {
         tv_tlfn = (TextView) view.findViewById(R.id.tv_telefono);
         tv_fax = (TextView) view.findViewById(R.id.tv_fax);
         tv_email = (TextView) view.findViewById(R.id.tv_email);
+
+        tv_titulotlfn = view.findViewById(R.id.tv_titulotelefono);
+        tv_tituloemail = view.findViewById(R.id.tv_tituloemail);
+        tv_titulofax = view.findViewById(R.id.tv_titulofax);
 
         img_email = (ImageView) view.findViewById(R.id.img_email);
         img_tlfn = (ImageView) view.findViewById(R.id.img_tlfn);
@@ -120,14 +128,17 @@ public class ContactoActivity extends Fragment {
     //Cargo los datos desde la bd a las distintas vistas
     public void assignPostData() {
 
+        viewsInvisible(false);
         Call<Empresa> call = WebService.getInstance().createService(WebServiceAPI.class).getEmpresaPorId(1);
 
         call.enqueue(new Callback<Empresa>() {
             @Override
             public void onResponse(Call<Empresa> call, Response<Empresa> response){
+                ll_warning.setVisibility(View.INVISIBLE);
                 imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
 
                 if(response.code() == 200){
+                    viewsInvisible(true);
                     Empresa empresa = response.body();
 
                     if(empresa == null){
@@ -164,6 +175,31 @@ public class ContactoActivity extends Fragment {
         Glide.with(context)
                 .load(url)
                 .into(img);
+    }
+
+    private void viewsInvisible(Boolean visible){
+
+        if(visible == false){
+            tv_nombre.setVisibility(View.INVISIBLE);
+            tv_direccion.setVisibility(View.INVISIBLE);
+            tv_tlfn.setVisibility(View.INVISIBLE);
+            tv_fax.setVisibility(View.INVISIBLE);
+            tv_email.setVisibility(View.INVISIBLE);
+
+            tv_tituloemail.setVisibility(View.INVISIBLE);
+            tv_titulofax.setVisibility(View.INVISIBLE);
+            tv_titulotlfn.setVisibility(View.INVISIBLE);
+        }else{
+            tv_nombre.setVisibility(View.VISIBLE);
+            tv_direccion.setVisibility(View.VISIBLE);
+            tv_tlfn.setVisibility(View.VISIBLE);
+            tv_fax.setVisibility(View.VISIBLE);
+            tv_email.setVisibility(View.VISIBLE);
+
+            tv_tituloemail.setVisibility(View.VISIBLE);
+            tv_titulofax.setVisibility(View.VISIBLE);
+            tv_titulotlfn.setVisibility(View.VISIBLE);
+        }
     }
 
 }

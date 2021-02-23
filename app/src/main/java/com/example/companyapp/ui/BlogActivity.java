@@ -75,12 +75,12 @@ public class BlogActivity extends Fragment {
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response){
+                ll_warning.setVisibility(View.INVISIBLE);
                 imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
 
                 if(response.code() == 200){
                     for(int i=0;i<response.body().size();i++){
-                        //reponse.body(i).getNombre()
-                        //post.add(response.body().get(i));
+                        post.add(response.body().get(i));
                     }
 
                     if(post.size() <= 0){

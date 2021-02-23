@@ -32,7 +32,7 @@
                 android:layout_width="125dp"
                 android:layout_height="170dp"
                 android:background="#2d2d2d"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:id="@+id/tv_titulo"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Titulo"
-                android:textSize="18sp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Precio"
-                android:textSize="12sp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_codigo"
@@ -58,15 +58,17 @@
                 android:layout_marginTop="10dp"
                 android:background="#edecec"
                 android:padding="8dp"
-                android:text="Codigo" />
+                android:text="Codigo"
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tv_descripcion"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="Descripcion"
-                android:textSize="18sp" />
+                android:textSize="14dp"
+                android:textAlignment="center"
+                android:layout_margin="20dp"/>
 
 
         </LinearLayout>

@@ -61,10 +61,10 @@ public class ProductosActivity extends Fragment {
         call.enqueue(new Callback<List<Producto>>() {
             @Override
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response){
+                ll_warning.setVisibility(View.INVISIBLE);
                 imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
                 if(response.code() == 200){
                     for(int i=0;i<response.body().size();i++){
-                        //reponse.body(i).getNombre()
                         lst_productos.add(response.body().get(i));
                     }
 
