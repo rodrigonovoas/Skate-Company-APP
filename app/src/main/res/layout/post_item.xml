@@ -8,6 +8,7 @@
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -23,7 +24,8 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                tools:srcCompat="@tools:sample/avatars[4]" />
+                tools:srcCompat="@tools:sample/avatars[4]"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_username"
@@ -33,29 +35,26 @@
                 android:layout_marginTop="12dp"
                 android:background="#edecec"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relative_low_id"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/titlebackground"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:foreground="@color/colorGreen2" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="Titulo"
                 android:textSize="20dp"
+                android:background="@color/colorGreen2"
                 android:textColor="@color/colorYellow" />
         </RelativeLayout>
 

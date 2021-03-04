@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.companyapp.R;
+import com.example.companyapp.common.Singleton;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
@@ -24,6 +25,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Activity activity = (Activity)context;
 
+        Singleton singleton = new Singleton();
+
         ll_warning = activity.findViewById(R.id.ll_warninginfo);
         tv_warning = activity.findViewById(R.id.tv_warninginfo);
         imv_warning = activity.findViewById(R.id.imv_warning);
@@ -32,13 +35,12 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         {
             if (isOnline(context)) {
                 ll_warning.setVisibility(View.INVISIBLE);
-                Log.e("keshav", "Online Connect Intenet ");
+                singleton.wifi_error = false;
             } else {
-
                 imv_warning.setImageDrawable(context.getDrawable(R.drawable.wifi_disc));
                 ll_warning.setVisibility(View.VISIBLE);
                 tv_warning.setText("No hay conexión a internet.");
-                Log.e("keshav", "Conectivity Failure !!! ");
+                singleton.wifi_error = true;
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.companyapp.R;
 import com.example.companyapp.api.WebService;
 import com.example.companyapp.api.WebServiceAPI;
+import com.example.companyapp.common.Singleton;
 import com.example.companyapp.model.Empresa;
 import com.example.companyapp.model.Post;
 import com.example.companyapp.ui.adapters.RecyclerViewAdapter;
@@ -60,6 +61,8 @@ public class ContactoActivity extends Fragment {
     TextView tv_warning;
     ImageView imv_warning;
 
+    private Singleton singleton;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class ContactoActivity extends Fragment {
         ll_warning = getActivity().findViewById(R.id.ll_warninginfo);
         tv_warning = getActivity().findViewById(R.id.tv_warninginfo);
         imv_warning = getActivity().findViewById(R.id.imv_warning);
+
+        singleton = new Singleton();
 
         //Aquí ponemos un Click Listener a la imagen de Email, y cuando hacemos click en ella, nos redirige a la aplicación que elijamos de correo electrónico.
         img_email.setOnClickListener(new View.OnClickListener() {
@@ -120,13 +125,18 @@ public class ContactoActivity extends Fragment {
             }
         });
 
-        assignPostData();
+        if(singleton.wifi_error == false){
+            assignPostData();
+        }else{
+            limpiarCampos();
+        }
 
         return view;
     }
 
     //Cargo los datos desde la bd a las distintas vistas
     public void assignPostData() {
+        singleton.server_error = false;
 
         viewsInvisible(false);
         Call<Empresa> call = WebService.getInstance().createService(WebServiceAPI.class).getEmpresaPorId(1);
@@ -142,8 +152,10 @@ public class ContactoActivity extends Fragment {
                     Empresa empresa = response.body();
 
                     if(empresa == null){
+                        singleton.server_error = true;
                         ll_warning.setVisibility(View.VISIBLE);
                         tv_warning.setText("No hay datos disponibles.");
+                        limpiarCampos();
                     }else{
                         tv_nombre.setText(empresa.getNombre());
                         tv_direccion.setText(empresa.getDireccion());
@@ -155,16 +167,20 @@ public class ContactoActivity extends Fragment {
                     }
 
                 }else if(response.code() == 404){
+                    singleton.server_error = true;
                     ll_warning.setVisibility(View.VISIBLE);
                     tv_warning.setText("ERROR CON EL SERVIDOR.");
+                    limpiarCampos();
                 }
             }
 
             @Override
             public void onFailure(Call<Empresa> call, Throwable t) {
+                singleton.server_error = true;
                 imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
                 ll_warning.setVisibility(View.VISIBLE);
                 tv_warning.setText("ERROR AL CONECTARSE AL SERVIDOR.");
+                limpiarCampos();
             }
 
         });
@@ -200,6 +216,12 @@ public class ContactoActivity extends Fragment {
             tv_titulofax.setVisibility(View.VISIBLE);
             tv_titulotlfn.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void limpiarCampos(){
+        img.setImageDrawable(null);
+
+        viewsInvisible(false);
     }
 
 }

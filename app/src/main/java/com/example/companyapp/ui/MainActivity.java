@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import android.view.View;
 
 import com.example.companyapp.R;
 import com.example.companyapp.api.NetworkChangeReceiver;
+import com.example.companyapp.common.Singleton;
 import com.example.companyapp.ui.adapters.SectionsPageAdapter;
 
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mNetworkReceiver;
 
     private ViewPager mViewPager;
+    private Singleton singleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Starting.");
 
+        singleton = new Singleton();
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -46,6 +51,44 @@ public class MainActivity extends AppCompatActivity {
 
         mNetworkReceiver = new NetworkChangeReceiver();
         registerNetworkBroadcastForNougat();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 1){
+                    ProductosActivity activity = new ProductosActivity();
+                    if (singleton.wifi_error||singleton.server_error){
+                        final Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.limpiarRecycler();
+                            }
+                        }, 1000);
+                    }else{
+                        /*
+                        final Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.asignarDatos();
+                            }
+                        }, 1000);
+                         */
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {

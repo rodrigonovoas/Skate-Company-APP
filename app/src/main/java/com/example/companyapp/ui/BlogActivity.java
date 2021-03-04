@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.companyapp.R;
 import com.example.companyapp.api.WebService;
 import com.example.companyapp.api.WebServiceAPI;
+import com.example.companyapp.common.Singleton;
 import com.example.companyapp.ui.adapters.RecyclerViewAdapter;
 import com.example.companyapp.model.Post;
 
@@ -44,6 +45,8 @@ public class BlogActivity extends Fragment {
     TextView tv_warning;
     ImageView imv_warning;
 
+    private Singleton singleton;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class BlogActivity extends Fragment {
         tv_warning = getActivity().findViewById(R.id.tv_warninginfo);
         imv_warning = getActivity().findViewById(R.id.imv_warning);
 
+        singleton = new Singleton();
+
         obtenerPost();
 
         return view;
@@ -65,11 +70,14 @@ public class BlogActivity extends Fragment {
 
     public void obtenerPost() {
         post = new ArrayList<>();
-        asignarDatos();
+        if(singleton.wifi_error == false){
+            asignarDatos();
+        }
     }
 
     //Obtenemos los post y sus información de la bd; posteriormente, rellenamos la lista del objeto Post con los datos sacados de la bd
     public void asignarDatos() {
+        singleton.server_error = false;
         Call<List<Post>> call = WebService.getInstance().createService(WebServiceAPI.class).getListaPosts();
 
         call.enqueue(new Callback<List<Post>>() {
@@ -84,6 +92,7 @@ public class BlogActivity extends Fragment {
                     }
 
                     if(post.size() <= 0){
+                        singleton.server_error = true;
                         ll_warning.setVisibility(View.VISIBLE);
                         tv_warning.setText("No hay datos disponibles.");
                     }else{
@@ -92,6 +101,7 @@ public class BlogActivity extends Fragment {
                     }
 
                 }else if(response.code() == 404){
+                    singleton.server_error = true;
                     ll_warning.setVisibility(View.VISIBLE);
                     tv_warning.setText("ERROR CON EL SERVIDOR.");
                 }
@@ -99,6 +109,7 @@ public class BlogActivity extends Fragment {
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                singleton.server_error = true;
                 imv_warning.setImageDrawable(getContext().getDrawable(R.drawable.warning));
                 ll_warning.setVisibility(View.VISIBLE);
                 tv_warning.setText("ERROR AL CONECTARSE AL SERVIDOR.");
